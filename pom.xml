@@ -19,8 +19,8 @@
         <!-- use hosebird -->
         <dependency>
             <groupId>com.twitter</groupId>
-            <artifactId>hbc-core</artifactId> <!-- or hbc-twitter4j -->
-            <version>2.2.0</version> <!-- or whatever the latest version is -->
+            <artifactId>hbc-core</artifactId>
+            <version>2.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -51,13 +51,29 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.waldonia.labs.flinkball.GoalsByMonthByGame</mainClass>
-                            <!--<mainClass>eu.waldonia.labs.flinkball.GoalsByMonth</mainClass>-->
-                            <!--<mainClass>eu.waldonia.labs.flinkball.TeamSelecterConsumer</mainClass>-->
-                            <!--<mainClass>eu.waldonia.labs.flinkball.FootyTableSourceConsumer</mainClass>-->
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>eu.waldonia.labs.flinkbird.StatusStreamConsumer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
