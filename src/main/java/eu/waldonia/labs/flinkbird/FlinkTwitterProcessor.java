@@ -1,9 +1,6 @@
 package eu.waldonia.labs.flinkbird;
 
-import eu.waldonia.labs.flinkbird.functions.LanguageFilterFunction;
-import eu.waldonia.labs.flinkbird.functions.NormalizerFunction;
-import eu.waldonia.labs.flinkbird.functions.TextractorFunction;
-import eu.waldonia.labs.flinkbird.functions.TimeBucketWordCountFunction;
+import eu.waldonia.labs.flinkbird.functions.*;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
@@ -65,8 +62,9 @@ public class FlinkTwitterProcessor {
                 .map(new NormalizerFunction())
                 .filter(new LanguageFilterFunction("en"))
                 .map(new TextractorFunction())
-                .map(new TimeBucketWordCountFunction(TimeBucketWordCountFunction.SECONDS,10))
-                .timeWindowAll(Time.seconds(10))
+                .filter(new KeywordFilterFunction("trump"))
+                .map(new TimeBucketWordCountFunction(TimeBucketWordCountFunction.SECONDS,30))
+                .timeWindowAll(Time.seconds(30))
                 .sum(1)
                 .print();
                 ;

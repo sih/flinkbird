@@ -6,7 +6,6 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author sih
@@ -38,6 +37,7 @@ public class TimeBucketWordCountFunction implements MapFunction<String, Tuple2<L
         ZonedDateTime midnight = now.truncatedTo(ChronoUnit.DAYS);
         Duration duration = Duration.between(midnight, now);
         long unitsPassed = 0L;
+
         if (windowUnit.equals(TimeBucketWordCountFunction.SECONDS)) {
             unitsPassed = duration.getSeconds();
         } else if (windowUnit.equals(TimeBucketWordCountFunction.MILLIS)) {
@@ -47,9 +47,10 @@ public class TimeBucketWordCountFunction implements MapFunction<String, Tuple2<L
         } else if (windowUnit.equals(TimeBucketWordCountFunction.MINUTES)) {
             unitsPassed = duration.get(ChronoUnit.MINUTES);
         }
+
         long bucket = unitsPassed/this.chunkVal;
 
 
-        return new Tuple2(bucket,value.length());
+        return new Tuple2(bucket,1);
     }
 }
