@@ -1,4 +1,4 @@
-package eu.waldonia.labs.flinkbird;
+package eu.waldonia.labs.flinkbird.examples;
 
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Constants;
@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author sih
  */
-public class StatusStreamConsumer {
+public class ManualStatusStreamConsumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusStreamConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManualStatusStreamConsumer.class);
 
     private BasicClient hosebirdClient;
 
@@ -33,7 +33,7 @@ public class StatusStreamConsumer {
      * @param token API token for Twitter app
      * @param secret API secret for Twitter app
      */
-    public StatusStreamConsumer(String consumerKey, String consumerSecret, String token, String secret) {
+    public ManualStatusStreamConsumer(String consumerKey, String consumerSecret, String token, String secret) {
         Authentication auth = new OAuth1(consumerKey, consumerSecret, token, secret);
         //Authentication auth = new com.twitter.hbc.httpclient.auth.BasicAuth(username, password);
 
@@ -88,7 +88,7 @@ public class StatusStreamConsumer {
      */
     public static void main(String[] args) {
         try {
-            StatusStreamConsumer ssc = new StatusStreamConsumer(args[0], args[1], args[2], args[3]);
+            ManualStatusStreamConsumer ssc = new ManualStatusStreamConsumer(args[0], args[1], args[2], args[3]);
             ssc.consume();
         } catch (Exception e) {
             e.printStackTrace();
