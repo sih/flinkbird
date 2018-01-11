@@ -6,7 +6,7 @@
 
     <groupId>eu.waldonia.labs</groupId>
     <artifactId>flinkbird</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -101,7 +101,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>eu.waldonia.labs.flinkbird.examples.ManualStatusStreamConsumer</mainClass>
+                            <mainClass>eu.waldonia.labs.flinkbird.FlinkTwitterProcessor</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
